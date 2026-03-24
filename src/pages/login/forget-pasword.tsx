@@ -9,37 +9,13 @@ import { message,  Card, Typography, Row, Col, Button, Avatar } from 'antd';
 const { Text, Paragraph, Title } = Typography;
 import React, { useState, useRef } from "react";
 import { FormattedMessage, useIntl } from '@umijs/max';
-import {  CaptchaClickShape } from '@/components';
 import { systemEmailExist,sendResetPwdEmail } from '@/services/security.api';
 import { ExistResponse } from '@/services/common';
 
 const ForgetPassword: React.FC = () => {
   const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
-  const [visible, setVisible] = useState<boolean>(false);
   const [checkSuccess, setCheckSuccess] = useState<boolean>(false);
-  const captchaCheckResult = (success: boolean) => {
-    if (success) {
-      checkEmail(formRef.current?.getFieldValue('email') as string).then(res => {
-        if (!res) {
-          message.error(intl.formatMessage({ id: 'model.user.email.not.exist' }));
-          return;
-        }else{
-           //发送邮件
-           debugger;
-           sendResetPwdEmail({name:formRef.current?.getFieldValue('email') as string} as ExistResponse).then(res=>{
-            if (res==='success'){
-              setCheckSuccess(true);
-              setVisible(!success);
-            }else{
-              message.error(intl.formatMessage({ id: 'model.user.email.send.fail' }));
-            }
-           });
-        }
-      }
-      );
-    }
-  };
   const checkEmail = async (email: string) => {
     const res = await systemEmailExist({ email }) as ExistResponse;
     if (res.exist) {
@@ -47,14 +23,22 @@ const ForgetPassword: React.FC = () => {
     }
     return false;
   };
-
-  const closeCaptchaModal = () => {
-    setVisible(false);
-  };
-  const onClick = () => {
-    const email = formRef.current?.getFieldValue('email');
-    setVisible(true);
-
+  const handleSubmit = async () => {
+    const email = formRef.current?.getFieldValue('email') as string;
+    if (!email) {
+      return;
+    }
+    const exist = await checkEmail(email);
+    if (!exist) {
+      message.error(intl.formatMessage({ id: 'model.user.email.not.exist' }));
+      return;
+    }
+    const res = await sendResetPwdEmail({ name: email } as ExistResponse);
+    if (res === 'success') {
+      setCheckSuccess(true);
+    } else {
+      message.error(intl.formatMessage({ id: 'model.user.email.send.fail' }));
+    }
   };
   return (
     <PageContainer title={false}
@@ -91,7 +75,7 @@ const ForgetPassword: React.FC = () => {
                     ]}
                   />
                   <Button type="primary" htmlType="submit" size="large" style={{ width: '100%' }}
-                    onClick={onClick}
+                    onClick={handleSubmit}
                   ><FormattedMessage id='pages.commit' /></Button>
                 </ProForm>
               </Col>
@@ -114,8 +98,6 @@ const ForgetPassword: React.FC = () => {
           </>}
         </Card>
       </div>
-      {visible &&
-        <CaptchaClickShape setResult={captchaCheckResult} closeModal={closeCaptchaModal} />}
     </PageContainer>
   );
 };

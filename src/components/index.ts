@@ -6,8 +6,6 @@
  * 布局组件
  */
 import { About } from './About';
-import { CaptchaClickBasic } from './Captcha/click_basic';
-import { CaptchaClickShape } from './Captcha/click_shape';
 import { CustomChatLine, CustomChatPie } from './Chart';
 import Footer from './Footer';
 import { Provider, ProviderActionIcons, ProviderInLine, ProviderTwoLine } from './Provider';
@@ -28,8 +26,6 @@ export {
   About,
   CustomChatPie,
   CustomChatLine,
-  CaptchaClickBasic,
-  CaptchaClickShape,
   TagSelect,
   StandardFormRow,
 };
