@@ -2,7 +2,7 @@ import { JsonMap } from './common.d';
 // UserAuthProfileCreate 系统用户认证方式创建
 export type UserAuthProfileCreate = { 
   //用户ID
-  userId: number;
+  userId: string;
   //认证类型provider中的code,email,phone
   //最大长度: 255
   provider: string;
@@ -32,13 +32,14 @@ export type UserAuthProfileCreate = {
 // UserAuthProfileDetail 系统用户认证方式详情
 export type UserAuthProfileDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间
   updatedAt: string;
   //用户ID
-  userId: number;
+  userId: string;
   //认证类型provider中的code,email,phone
   //最大长度: 255
   provider?: string;
@@ -75,16 +76,18 @@ export type UserAuthProfileDetailList = {
 // UserAuthProfileStatus 禁用后，用户将不能使用该认证方式登陆系统
 export type UserAuthProfileStatus = { 
   //主键
-  ids: number[];
+  ids: string[];
   //是否有效
   enable: boolean;
 }; 
 // UserAuthProfileUpdate 系统用户认证方式修改
 export type UserAuthProfileUpdate = { 
   //记录ID
-  id: number;
+  //最大长度: 50
+  id: string;
   //用户ID
-  userId: number;
+  //最大长度: 50
+  userId: string;
   //第三方登录用户名
   //最大长度: 255
   loginName?: string;

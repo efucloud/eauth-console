@@ -1,22 +1,8 @@
 import { request } from '@umijs/max';
 
-import { BatchOperationIds } from './common.d';
 import { MultiFactorAuthDetail, PersonalBoundMFA } from './mult_factor_auth.d';
+import { BatchOperationIds } from './common.d';
 
-//删除MFA数据
-//删除MFA数据信息详情
-//请求方法: DELETE
-//请求地址: /api/mfa
-export async function deleteUserMultiFactorAuth(  data: BatchOperationIds,   options?: { [key: string]: any }) {
-  return  request(`/api/mfa`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
-    ...(options || {}),
-  });
-}
 //重置个人MFA信息
 //重置个人MFA信息，会重新生成新的
 //请求方法: POST
@@ -41,6 +27,20 @@ export async function getMultiFactorAuthPersonal<MultiFactorAuthDetail>(  option
     headers: {
       'Content-Type': 'application/json',
     },
+    ...(options || {}),
+  });
+}
+//删除MFA数据
+//删除MFA数据信息详情
+//请求方法: DELETE
+//请求地址: /api/mfa
+export async function deleteUserMultiFactorAuth(  data: BatchOperationIds,   options?: { [key: string]: any }) {
+  return  request(`/api/mfa`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
     ...(options || {}),
   });
 }

@@ -11,7 +11,7 @@ tag="v1.0.0.$(date +'%Y%m%d%H%M')"
 echo "Building tag: $tag"
 echo "local build start"
 yarn build
-echo "local build success"
+echo "local build registry.cn-shenzhen.aliyuncs.com/efucloud-public/eauth-console:$tag"
 docker buildx build \
   -f Dockerfile.local \
   --build-arg GIT_COMMIT="$GIT_COMMIT" \
@@ -22,3 +22,4 @@ docker buildx build \
   --progress=plain \
   --push \
   .
+echo "build registry.cn-shenzhen.aliyuncs.com/efucloud-public/eauth-console:$tag success"

@@ -26,7 +26,7 @@ const ProviderOidcForm: FC<Record<string, any>> = () => {
   const intl = useIntl();
   const params = useParams();
   let initialValues = {} as ProviderOidcDetail;
-const colorPrimary=getColorPrimary();
+  const colorPrimary = getColorPrimary();
   useEffect(() => {
     const searchParams = getSearchParams();
     let categ = searchParams.get('category');
@@ -51,7 +51,7 @@ const colorPrimary=getColorPrimary();
         navigate(`${BaseAddress}/detail/${detail.id}`);
       }
     } else {
-      values['id'] = Number(params.id);
+      values['id'] = params.id;
       const detail = await updateProviderOidc(values as ProviderOidcUpdate) as ProviderOidcDetail;
       if (detail.id) {
         // 跳转到详情页
@@ -65,7 +65,7 @@ const colorPrimary=getColorPrimary();
   const onInitData = async () => {
     let initData = {} as ProviderOidcDetail;
     if (mode === Update) {
-      const res = await getProviderOidc({ id: Number(params.id) });
+      const res = await getProviderOidc({ id: params.id });
       initData = res as ProviderOidcDetail;
       setCategory(initData.category);
       const { scopes } = initData;
@@ -105,9 +105,9 @@ const colorPrimary=getColorPrimary();
       onFinish={onFinish}
     >
       <PageContainer
-      title={intl.formatMessage({ id: 'menu.provider.oidc' })}
-       subTitle={<><FormattedMessage id='pages.oauth2.callback' />: <a style={{color:colorPrimary}} href=''>{window.location.origin}/oauth/callback/{category}</a></>}
-       header={{ breadcrumb: {}, onBack: () => navigate(`${BaseAddress}`) }}>
+        title={intl.formatMessage({ id: 'menu.provider.oidc' })}
+        subTitle={<><FormattedMessage id='pages.oauth2.callback' />: <a style={{ color: colorPrimary }} href=''>{window.location.origin}/oauth/callback/{category}</a></>}
+        header={{ breadcrumb: {}, onBack: () => navigate(`${BaseAddress}`) }}>
         <Card title={(<Space><ProviderInLine provider={category} /></Space>)}
           bordered={false}>
           <Row gutter={{ xs: 16, sm: 32, md: 64, lg: 128 }}>
@@ -197,7 +197,7 @@ const colorPrimary=getColorPrimary();
           {showMoreFields && <Row gutter={{ xs: 16, sm: 32, md: 64, lg: 128 }}>
             <Col lg={12} md={12} sm={24} >
               <ProFormText
-                tooltip={{color: colorPrimary,title:intl.formatMessage({ id: 'model.provider.oidc.issuer.description' })}}
+                tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.provider.oidc.issuer.description' }) }}
                 label={intl.formatMessage({ id: 'model.provider.oidc.issuer' })}
                 name="issuer"
                 rules={[
@@ -207,7 +207,7 @@ const colorPrimary=getColorPrimary();
             </Col>
             <Col lg={12} md={12} sm={24} >
               <ProFormText
-                tooltip={{color: colorPrimary,title:intl.formatMessage({ id: 'model.provider.oidc.userinfoEndpoint.description' })}}
+                tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.provider.oidc.userinfoEndpoint.description' }) }}
 
                 label={intl.formatMessage({ id: 'model.provider.oidc.userinfoEndpoint' })}
                 name="userinfoEndpoint"

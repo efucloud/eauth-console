@@ -8,7 +8,7 @@ import {
 import { Card, Col, Row } from 'antd';
 import type { FC } from 'react';
 import { useParams, useIntl, useNavigate } from '@umijs/max';
-import {  getUser, updateUser, createUser } from '@/services/user.api';
+import { getUser, updateUser, createUser } from '@/services/user.api';
 import { UserDetail, UserUpdate, UserCreate } from '@/services/user.d';
 const Update = 'update';
 const Create = 'create';
@@ -25,7 +25,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     if (mode === Create) {
       detail = await createUser(values as UserCreate);
     } else {
-      values['id'] = Number(params.id);
+      values['id'] = params.id;
       detail = await updateUser(values as UserUpdate);
     }
     let user = detail as UserDetail;
@@ -36,36 +36,36 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   };
   const roles = [
     {
-      label: intl.formatMessage({ id: 'model.user.role.admin'}),
+      label: intl.formatMessage({ id: 'model.user.role.admin' }),
       value: 'admin',
     },
     {
-      label: intl.formatMessage({ id: 'model.user.role.edit'}),
+      label: intl.formatMessage({ id: 'model.user.role.edit' }),
       value: 'edit',
     },
     {
-      label: intl.formatMessage({ id: 'model.user.role.view'}),
+      label: intl.formatMessage({ id: 'model.user.role.view' }),
       value: 'view',
     },
     {
-      label: intl.formatMessage({ id: 'model.user.role.none'}),
+      label: intl.formatMessage({ id: 'model.user.role.none' }),
       value: 'none',
     },
   ];
   const languages = [
     {
-      label: intl.formatMessage({ id: 'model.user.language.zh'}),
+      label: intl.formatMessage({ id: 'model.user.language.zh' }),
       value: 'zh-CN',
     },
     {
-      label: intl.formatMessage({ id: 'model.user.language.en'}),
+      label: intl.formatMessage({ id: 'model.user.language.en' }),
       value: 'en-US',
     },
   ]
   const onInitData = async () => {
-    let initData = {} as  UserDetail;
+    let initData = {} as UserDetail;
     if (mode !== Create) {
-      const res = await getUser({ id: Number(params.id) });
+      const res = await getUser({ id: params.id });
       initData = res as UserDetail;
     }
     return initData;

@@ -2,6 +2,20 @@ import { request } from '@umijs/max';
 
 import { SetPassword } from './user.d';
 
+//设置个人密码
+//设置个人密码
+//请求方法: POST
+//请求地址: /api/personal/set/pwd
+export async function setPassword(  data: SetPassword,   options?: { [key: string]: any }) {
+  return  request(`/api/personal/set/pwd`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+    ...(options || {}),
+  });
+}
 //更新个人头像
 //更新个人头像
 //请求方法: POST
@@ -20,20 +34,6 @@ export async function updateSelfAvatar(
       'Content-Type': 'multipart/form-data',
     },
     data: formData,
-    ...(options || {}),
-  });
-}
-//设置个人密码
-//设置个人密码
-//请求方法: POST
-//请求地址: /api/personal/set/pwd
-export async function setPassword(  data: SetPassword,   options?: { [key: string]: any }) {
-  return  request(`/api/personal/set/pwd`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
     ...(options || {}),
   });
 }

@@ -1,7 +1,8 @@
 //默认语言
 export type SetPassword = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //密码
   newPassword: string;
   //旧密码
@@ -10,7 +11,8 @@ export type SetPassword = {
 // ShortUser 简单账户详情
 export type ShortUser = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //用户名
@@ -83,13 +85,12 @@ export type UserCreate = {
   //默认值: zh
   //最大长度: 255
   language: string;
-  //职位ID
-  positionId?: number;
 }; 
 // UserDetail 账户详情
 export type UserDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间
@@ -151,7 +152,8 @@ export type UserMfa = {
 // UserResetPassword 账户修改密码
 export type UserResetPassword = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //密码
   password: string;
   //重置密码状态码
@@ -161,7 +163,7 @@ export type UserResetPassword = {
 // 设置账户在系统中的角色
 export type UserRole = { 
   //主键
-  ids: number[];
+  ids: string[];
   //用户在系统中的角色
   //默认值: none
   //最大长度: 255
@@ -171,7 +173,7 @@ export type UserRole = {
 // 账户禁用后，用户将不能登陆该系统
 export type UserStatus = { 
   //主键
-  ids: number[];
+  ids: string[];
   //是否有效
   enable: boolean;
 }; 
@@ -179,7 +181,8 @@ export type UserStatus = {
 // 更新账户信息，未来只能在eauth中更新
 export type UserUpdate = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //用户名
   //最大长度: 255
   username: string;

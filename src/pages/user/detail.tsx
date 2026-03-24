@@ -6,7 +6,7 @@ import type { TableListPagination } from '@/services/common.d';
 import type { ProColumns } from '@ant-design/pro-components';
 import React, { useEffect, useState, useRef } from 'react';
 import type { UserDetail } from '@/services/user.d';
-import { getUser,  } from '@/services/user.api';
+import { getUser, } from '@/services/user.api';
 import { getUserAuthProfileByUserId, changeUserAuthProfileStatus, deleteUserAuthProfile } from '@/services/auth_profile.api';
 import { UserAuthProfileDetail } from '@/services/user_auth_profile.d';
 import { ProviderInLine } from '@/components';
@@ -17,7 +17,7 @@ import { getColorPrimary } from '@/utils/global';
 const BaseAddress = "/user";
 
 const UserDetail: React.FC = () => {
-  const colorPrimary=getColorPrimary();
+  const colorPrimary = getColorPrimary();
   const access = useAccess();
   const navigate = useNavigate();
   const intl = useIntl();
@@ -26,14 +26,14 @@ const UserDetail: React.FC = () => {
   const faceIdDataActionRef = useRef<ActionType>();
   const [userInfo, setUserInfo] = useState<UserDetail>();
   const getUserInfo = async () => {
-    const data = await getUser({ id: Number(params.id) });
+    const data = await getUser({ id: params.id });
     setUserInfo(data as UserDetail);
   }
   useEffect(() => {
     getUserInfo();
   }, [params.id]);
- 
- 
+
+
   const authProfileHandleEnable = async (intl: IntlShape, enable: boolean, selectedRows: UserAuthProfileDetail[]) => {
     const hide = message.loading(intl.formatMessage({ id: 'pages.operation.updating' }));
     if (!selectedRows) return true;
@@ -73,41 +73,41 @@ const UserDetail: React.FC = () => {
   };
   const userAuthProfileColumns: ProColumns<UserAuthProfileDetail>[] = [
     {
-      title: intl.formatMessage({ id: 'model.user_auth_profile.provider'}),
+      title: intl.formatMessage({ id: 'model.user_auth_profile.provider' }),
       dataIndex: 'provider',
       render: (dom, entity) => { return (<ProviderInLine provider={entity.provider} />); },
     },
     {
-      title: intl.formatMessage({ id: 'model.user_auth_profile.createdAt'}),
+      title: intl.formatMessage({ id: 'model.user_auth_profile.createdAt' }),
       dataIndex: 'createdAt',
       search: false,
       valueType: 'dateTime',
     },
     {
-      title: intl.formatMessage({ id: 'model.latestUsedTime'}),
+      title: intl.formatMessage({ id: 'model.latestUsedTime' }),
       dataIndex: 'latestUsedTime',
       search: false,
       sorter: true,
       valueType: 'dateTime',
     },
     {
-      title: intl.formatMessage({ id: 'model.user_auth_profile.enable'}),
+      title: intl.formatMessage({ id: 'model.user_auth_profile.enable' }),
       dataIndex: 'enable',
-      
+
       search: false,
       valueEnum: {
         false: {
-          text: intl.formatMessage({ id: 'model.user_auth_profile.enable.disable'}),
+          text: intl.formatMessage({ id: 'model.user_auth_profile.enable.disable' }),
           status: 'Error',
         },
         true: {
-          text: intl.formatMessage({ id: 'model.user_auth_profile.enable.enable'}),
+          text: intl.formatMessage({ id: 'model.user_auth_profile.enable.enable' }),
           status: 'Success',
         },
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.operation'}),
+      title: intl.formatMessage({ id: 'pages.operation' }),
       dataIndex: 'option',
       valueType: 'option',
       hideInTable: !access.systemEditAccess,
@@ -117,10 +117,10 @@ const UserDetail: React.FC = () => {
           <Popconfirm
             key={item.id + '-unbind'}
             title=''
-            description={intl.formatMessage({ id: 'pages.personal.settings.unbind.description'})}
+            description={intl.formatMessage({ id: 'pages.personal.settings.unbind.description' })}
 
-            okText={intl.formatMessage({ id: 'pages.operation.confirm'})}
-            cancelText={intl.formatMessage({ id: 'pages.operation.cancel'})}
+            okText={intl.formatMessage({ id: 'pages.operation.confirm' })}
+            cancelText={intl.formatMessage({ id: 'pages.operation.cancel' })}
             onConfirm={() => {
               authProfileHandleDelete(intl, [item]);
             }}
@@ -133,14 +133,14 @@ const UserDetail: React.FC = () => {
             <Popconfirm
               key={item.id + '-disable'}
               title=''
-              description={intl.formatMessage({ id: 'pages.personal.settings.bind.disable.description'})}
-              okText={intl.formatMessage({ id: 'pages.operation.confirm'})}
-              cancelText={intl.formatMessage({ id: 'pages.operation.cancel'})}
+              description={intl.formatMessage({ id: 'pages.personal.settings.bind.disable.description' })}
+              okText={intl.formatMessage({ id: 'pages.operation.confirm' })}
+              cancelText={intl.formatMessage({ id: 'pages.operation.cancel' })}
               onConfirm={() => {
                 authProfileHandleEnable(intl, false, [item]);
               }}
             >
-              <a style={{color:colorPrimary}} className='delete'><FormattedMessage id="pages.personal.settings.bind.disable" defaultMessage="禁用" /></a>
+              <a style={{ color: colorPrimary }} className='delete'><FormattedMessage id="pages.personal.settings.bind.disable" defaultMessage="禁用" /></a>
             </Popconfirm>
           );
         }
@@ -148,14 +148,14 @@ const UserDetail: React.FC = () => {
           nodes.push(<Popconfirm
             key={item.id + '-enable'}
             title=''
-            description={intl.formatMessage({ id: 'pages.personal.settings.bind.enable.description'})}
-            okText={intl.formatMessage({ id: 'pages.operation.confirm'})}
-            cancelText={intl.formatMessage({ id: 'pages.operation.cancel'})}
+            description={intl.formatMessage({ id: 'pages.personal.settings.bind.enable.description' })}
+            okText={intl.formatMessage({ id: 'pages.operation.confirm' })}
+            cancelText={intl.formatMessage({ id: 'pages.operation.cancel' })}
             onConfirm={() => {
               authProfileHandleEnable(intl, true, [item]);
             }}
           >
-            <a style={{color:colorPrimary}} ><FormattedMessage id="pages.personal.settings.bind.enable" defaultMessage="启用" /></a>
+            <a style={{ color: colorPrimary }} ><FormattedMessage id="pages.personal.settings.bind.enable" defaultMessage="启用" /></a>
           </Popconfirm>);
         }
         return nodes;
@@ -218,26 +218,26 @@ const UserDetail: React.FC = () => {
   };
   const userFaceIdColumns: ProColumns<FaceRecognitionDetail>[] = [
     {
-      title: intl.formatMessage({ id: 'model.face_recognition.name'}),
+      title: intl.formatMessage({ id: 'model.face_recognition.name' }),
       dataIndex: 'name',
       search: false,
     },
     {
-      title: intl.formatMessage({ id: 'model.face_recognition.createdAt'}),
+      title: intl.formatMessage({ id: 'model.face_recognition.createdAt' }),
       dataIndex: 'createdAt',
       search: false,
       sorter: true,
       valueType: 'dateTime',
     },
     {
-      title: intl.formatMessage({ id: 'model.latestUsedTime'}),
+      title: intl.formatMessage({ id: 'model.latestUsedTime' }),
       dataIndex: 'latestUsedTime',
       search: false,
       sorter: true,
       valueType: 'dateTime',
     },
     {
-      title: intl.formatMessage({ id: 'pages.operation'}),
+      title: intl.formatMessage({ id: 'pages.operation' }),
       dataIndex: 'option',
       valueType: 'option',
       hideInTable: !access.systemEditAccess,
@@ -247,10 +247,10 @@ const UserDetail: React.FC = () => {
           <Popconfirm
             key={item.id + '-unbind'}
             title=''
-            description={intl.formatMessage({ id: 'pages.personal.settings.unbind.description'})}
+            description={intl.formatMessage({ id: 'pages.personal.settings.unbind.description' })}
 
-            okText={intl.formatMessage({ id: 'pages.operation.confirm'})}
-            cancelText={intl.formatMessage({ id: 'pages.operation.cancel'})}
+            okText={intl.formatMessage({ id: 'pages.operation.confirm' })}
+            cancelText={intl.formatMessage({ id: 'pages.operation.cancel' })}
             onConfirm={() => {
               faceIdDataHandleDelete(intl, [item]);
             }}
@@ -263,14 +263,14 @@ const UserDetail: React.FC = () => {
             <Popconfirm
               key={item.id + '-disable'}
               title=''
-              description={intl.formatMessage({ id: 'pages.personal.settings.bind.disable.description'})}
-              okText={intl.formatMessage({ id: 'pages.operation.confirm'})}
-              cancelText={intl.formatMessage({ id: 'pages.operation.cancel'})}
+              description={intl.formatMessage({ id: 'pages.personal.settings.bind.disable.description' })}
+              okText={intl.formatMessage({ id: 'pages.operation.confirm' })}
+              cancelText={intl.formatMessage({ id: 'pages.operation.cancel' })}
               onConfirm={() => {
                 faceIdDataHandleEnable(intl, false, [item]);
               }}
             >
-              <a style={{color:colorPrimary}} className='delete'><FormattedMessage id="pages.personal.settings.bind.disable" defaultMessage="禁用" /></a>
+              <a style={{ color: colorPrimary }} className='delete'><FormattedMessage id="pages.personal.settings.bind.disable" defaultMessage="禁用" /></a>
             </Popconfirm>
           );
         }
@@ -278,14 +278,14 @@ const UserDetail: React.FC = () => {
           nodes.push(<Popconfirm
             key={item.id + '-enable'}
             title=''
-            description={intl.formatMessage({ id: 'pages.personal.settings.bind.enable.description'})}
-            okText={intl.formatMessage({ id: 'pages.operation.confirm'})}
-            cancelText={intl.formatMessage({ id: 'pages.operation.cancel'})}
+            description={intl.formatMessage({ id: 'pages.personal.settings.bind.enable.description' })}
+            okText={intl.formatMessage({ id: 'pages.operation.confirm' })}
+            cancelText={intl.formatMessage({ id: 'pages.operation.cancel' })}
             onConfirm={() => {
               faceIdDataHandleEnable(intl, true, [item]);
             }}
           >
-            <a style={{color:colorPrimary}} ><FormattedMessage id="pages.personal.settings.bind.enable" defaultMessage="启用" /></a>
+            <a style={{ color: colorPrimary }} ><FormattedMessage id="pages.personal.settings.bind.enable" defaultMessage="启用" /></a>
           </Popconfirm>);
         }
 
@@ -308,44 +308,44 @@ const UserDetail: React.FC = () => {
       </ProTable>
     );
   };
- 
+
   return (
     <PageContainer title={intl.formatMessage({ id: 'menu.user' })} header={{ breadcrumb: {}, onBack: () => navigate(`${BaseAddress}`) }}
-      subTitle={userInfo?.avatar &&<Avatar src={userInfo?.avatar} />} >
-      <Card bordered={false} 
+      subTitle={userInfo?.avatar && <Avatar src={userInfo?.avatar} />} >
+      <Card bordered={false}
       >
-        <ProDescriptions style={{ marginBottom: 32}} column={3} title={intl.formatMessage({ id: 'pages.detail.baseinfo' })}
-        extra={
-          <Space>
-            <Access accessible={access.systemEditAccess === true}>
-              <Button type={'primary'} icon={<EditOutlined />} block
-                onClick={() => {
-                  navigate(
-                    {
-                      pathname: `${BaseAddress}/update/${params.id}`,
-                    },
-                    { replace: true },
-                  );
-                }}
-              ><FormattedMessage id="pages.operation.edit"  /></Button>
-            </Access>
-          </Space>
-        }>
+        <ProDescriptions style={{ marginBottom: 32 }} column={3} title={intl.formatMessage({ id: 'pages.detail.baseinfo' })}
+          extra={
+            <Space>
+              <Access accessible={access.systemEditAccess === true}>
+                <Button type={'primary'} icon={<EditOutlined />} block
+                  onClick={() => {
+                    navigate(
+                      {
+                        pathname: `${BaseAddress}/update/${params.id}`,
+                      },
+                      { replace: true },
+                    );
+                  }}
+                ><FormattedMessage id="pages.operation.edit" /></Button>
+              </Access>
+            </Space>
+          }>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.user.username' })}>{userInfo?.username}</ProDescriptions.Item>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.user.nickname' })}>{userInfo?.nickname}</ProDescriptions.Item>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.user.role' })}
             valueEnum={{
               'admin': {
-                text: intl.formatMessage({ id: 'model.user.role.admin'}),
+                text: intl.formatMessage({ id: 'model.user.role.admin' }),
               },
               'edit': {
-                text: intl.formatMessage({ id: 'model.user.role.edit'}),
+                text: intl.formatMessage({ id: 'model.user.role.edit' }),
               },
               'view': {
-                text: intl.formatMessage({ id: 'model.user.role.view'}),
+                text: intl.formatMessage({ id: 'model.user.role.view' }),
               },
               'none': {
-                text: intl.formatMessage({ id: 'model.user.role.none'}),
+                text: intl.formatMessage({ id: 'model.user.role.none' }),
               },
             }}
           >{userInfo?.role}</ProDescriptions.Item>
@@ -356,11 +356,11 @@ const UserDetail: React.FC = () => {
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.user.enable' })}
             valueEnum={{
               false: {
-                text: intl.formatMessage({ id: 'model.user.enable.disable'}),
+                text: intl.formatMessage({ id: 'model.user.enable.disable' }),
                 status: 'Error',
               },
               true: {
-                text: intl.formatMessage({ id: 'model.user.enable.enable'}),
+                text: intl.formatMessage({ id: 'model.user.enable.enable' }),
                 status: 'Success',
               },
             }}
@@ -369,12 +369,12 @@ const UserDetail: React.FC = () => {
       </Card>
       <br />
       <Row gutter={24}>
-         
+
         <Col xl={12} lg={24} md={24} sm={24} xs={24}>
           <Card bordered={false} title={intl.formatMessage({ id: 'model.user.authed.third.method' })}>
-            <Divider style={{ marginTop: 10, borderColor: '#7cb305' }} ><FormattedMessage id='model.user.authed.third.method.oidc'  /></Divider>
+            <Divider style={{ marginTop: 10, borderColor: '#7cb305' }} ><FormattedMessage id='model.user.authed.third.method.oidc' /></Divider>
             {userInfo?.id && UserAuthProfiles(userInfo?.id)}
-            <Divider style={{ marginTop: 10, borderColor: '#7cb305' }} ><FormattedMessage id='model.user.authed.third.method.face'  /></Divider>
+            <Divider style={{ marginTop: 10, borderColor: '#7cb305' }} ><FormattedMessage id='model.user.authed.third.method.face' /></Divider>
             {userInfo?.id && UserFaceIdDatas(userInfo?.id)}
           </Card>
         </Col>

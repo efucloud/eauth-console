@@ -5,7 +5,6 @@ import { EditOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import type { ApplicationDetail } from '@/services/application.d';
 import { getApplication } from '@/services/application.api';
-import { User } from '@/components';
 import { getColorPrimary } from '@/utils/global';
 const BaseAddress = "/app";
 
@@ -17,7 +16,7 @@ const AppDetail: React.FC = () => {
   const params = useParams();
   const [appInfo, setAppInfo] = useState<ApplicationDetail>();
   const getInfo = async () => {
-    const data = await getApplication({ id: Number(params.id) });
+    const data = await getApplication({ id:  });
     setAppInfo(data as ApplicationDetail);
   }
   useEffect(() => { getInfo(); }, [params.id]);

@@ -7,7 +7,7 @@ export type AccessTokenResponse = {
   id_token: string;
   timestamp: number;
   need: boolean;
-  id: number;
+  id: string;
   code?: string;
   username?: string;
   nickname?: string;
@@ -35,7 +35,7 @@ export type ArrayFloat64 = {
 // AuthedUserInfo 用户信息
 export type AuthedUserInfo = { 
   //主键
-  id: number;
+  id: string;
   //用户名
   username: string;
   //昵称，如中文名
@@ -62,7 +62,7 @@ export type AuthedUserInfo = {
 // BatchOperationIds 需要删除的列表,根据数据库id
 export type BatchOperationIds = { 
   //需要删key 可以为数据库的id
-  ids: number[];
+  ids: string[];
 }; 
 // BatchOperationKeys 需要删除的列表，根据表唯一字符型字段
 export type BatchOperationKeys = { 
@@ -138,7 +138,7 @@ export type LoginByLDAP = {
   //自动登录,12小时，1周，15天,1个月，半年
   rememberMe?: string;
   //绑定的系统用户
-  bindId?: number;
+  bindId?: string;
   //用户名
   username: string;
   //密码
@@ -150,6 +150,15 @@ export type LoginByOIDC = {
   code?: string;
   provider: string;
   redirectUri?: string;
+}; 
+// LoginBySAML SAML登录
+export type LoginBySAML = { 
+  rememberMe?: string;
+  provider: string;
+  samlResponse?: string;
+  SAMLResponse?: string;
+  relayState?: string;
+  RelayState?: string;
 }; 
 // LoginByUsername 用户名密码登录
 export type LoginByUsername = { 
@@ -163,14 +172,10 @@ export type LoginByUsername = {
   //账户来源
   source?: string;
 }; 
-// Logout 退出登录
-export type Logout = { 
-  organizations?: string[];
-}; 
 // Value 实现 driver.Valuer 接口，Value 返回 json value
 export type MfaCode = { 
   //用户ID
-  userId: number;
+  userId: string;
   //验证码
   code?: string;
 }; 
@@ -193,8 +198,18 @@ export type OidcCodeRequest = {
   state?: string;
   //响应类型
   responseType?: string;
+  //PKCE挑战值(camel风格)
+  codeChallenge?: string;
+  //PKCE挑战方法(camel风格)
+  codeChallengeMethod?: string;
+  //PKCE挑战值(标准风格)
+  code_challenge?: string;
+  //PKCE挑战方法(标准风格)
+  code_challenge_method?: string;
+  //OIDC nonce
+  nonce?: string;
 }; 
-//响应类型
+//OIDC nonce
 export type OidcCodeResponse = { 
   code?: string;
   //状态码
@@ -209,11 +224,15 @@ export type OidcRequestToken = {
   //客户端密钥
   client_secret: string;
   //类型
-  grant_type : string;
+  grant_type: string;
   //请求码
   code: string;
   //重定向地址
   redirect_uri?: string;
+  //PKCE验证码
+  code_verifier?: string;
+  //PKCE验证码(camel风格兼容)
+  codeVerifier?: string;
 }; 
 //重定向地址
 export type OpenIDConfiguration = { 
@@ -231,6 +250,7 @@ export type OpenIDConfiguration = {
   id_token_signing_alg_values_supported?: string[];
   scopes_supported?: string[];
   claims_supported?: string[];
+  code_challenge_methods_supported?: string[];
   request_parameter_supported: boolean;
   request_object_signing_alg_values_supported?: string[];
 }; 
@@ -264,6 +284,15 @@ export type ResponseError = {
   //当前请求地址
   requestUri?: string;
 }; 
+//提供商类型
+export type SAML = { 
+  //名称
+  name: string;
+  //认证地址
+  address: string;
+  //提供商类型
+  category: string;
+}; 
 //验证码
 export type SamlApplication = { 
   idpMetadata?: string;
@@ -292,13 +321,14 @@ export type TableListPagination = {
 // ThirdAuthMethod 支持的第三方登录方式
 export type ThirdAuthMethod = { 
   oidcs: OIDC[];
+  samls?: SAML[];
   mfa: boolean;
   faceRecognition: boolean;
 }; 
 //账户来源
 export type ThirdAuthProfile = { 
   //所属用户
-  userId?: number;
+  userId?: string;
   //认证提供商
   provider?: string;
   //第三方认证信息中的ID
@@ -321,7 +351,7 @@ export type ThirdAuthProfile = {
 //登录方式 未来动态认证时使用
 export type UserClaims = { 
   //系统用户ID
-  id?: number;
+  string?: string;
   // 用户名 组织内唯一必须由DNS-1123标签格式的单元组成
   username?: string;
   // 昵称，如中文名

@@ -1,32 +1,19 @@
 import { request } from '@umijs/max';
 
-import { ProviderOidcDetailList, ProviderOidcDetail, ProviderOidcCreate, ProviderOidcUpdate, ProviderOidcStatus } from './provider_oidc.d';
+import { ProviderOidcStatus, ProviderOidcDetailList, ProviderOidcDetail, ProviderOidcCreate, ProviderOidcUpdate } from './provider_oidc.d';
 import { BatchOperationIds } from './common.d';
 
-//获取OIDC认证提供商列表
-//获取OIDC认证提供商信息
-//请求方法: GET
-//请求地址: /api/provider-oidc
-//参数名: current 参数类型: number 参数位置: query 是否必须: false  参数说明: 页码
-//参数名: pageSize 参数类型: number 参数位置: query 是否必须: false  参数说明: 每页大小
-//参数名: order 参数类型: string 参数位置: query 是否必须: false  参数说明: 排序
-//参数名: name 参数类型: string 参数位置: query 是否必须: false  参数说明: 名称
-//参数名: code 参数类型: string 参数位置: query 是否必须: false  参数说明: 编码
-export async function listProviderOidc<ProviderOidcDetailList>(
-  params: {
-    pageSize?:number;// 每页大小
-    order?:string;// 排序
-    name?:string;// 名称
-    code?:string;// 编码
-    current?:number;// 页码
-  },
-  options?: { [key: string]: any }) {
-  return  request<ProviderOidcDetailList>(`/api/provider-oidc`, {
-    method: 'GET',
+//启用禁用
+//启用禁用,修改账户状态
+//请求方法: POST
+//请求地址: /api/provider-oidc/status
+export async function changeProviderOidcStatus(  data: ProviderOidcStatus,   options?: { [key: string]: any }) {
+  return  request(`/api/provider-oidc/status`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    params: params,
+    data,
     ...(options || {}),
   });
 }
@@ -44,17 +31,30 @@ export async function deleteProviderOidc(  data: BatchOperationIds,   options?: 
     ...(options || {}),
   });
 }
-//创建OIDC认证提供商
-//创建OIDC认证提供商信息
-//请求方法: POST
+//获取OIDC认证提供商列表
+//获取OIDC认证提供商信息
+//请求方法: GET
 //请求地址: /api/provider-oidc
-export async function createProviderOidc<ProviderOidcDetail>(  data: ProviderOidcCreate,   options?: { [key: string]: any }) {
-  return  request<ProviderOidcDetail>(`/api/provider-oidc`, {
-    method: 'POST',
+//参数名: name 参数类型: string 参数位置: query 是否必须: false  参数说明: 名称
+//参数名: code 参数类型: string 参数位置: query 是否必须: false  参数说明: 编码
+//参数名: current 参数类型: number 参数位置: query 是否必须: false  参数说明: 页码
+//参数名: pageSize 参数类型: number 参数位置: query 是否必须: false  参数说明: 每页大小
+//参数名: order 参数类型: string 参数位置: query 是否必须: false  参数说明: 排序
+export async function listProviderOidc<ProviderOidcDetailList>(
+  params: {
+    order?:string;// 排序
+    name?:string;// 名称
+    code?:string;// 编码
+    current?:number;// 页码
+    pageSize?:number;// 每页大小
+  },
+  options?: { [key: string]: any }) {
+  return  request<ProviderOidcDetailList>(`/api/provider-oidc`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    data,
+    params: params,
     ...(options || {}),
   });
 }
@@ -78,13 +78,13 @@ export async function getProviderOidc<ProviderOidcDetail>(
     ...(options || {}),
   });
 }
-//更新OIDC认证提供商信息
-//更新OIDC认证提供商信息
-//请求方法: PUT
+//创建OIDC认证提供商
+//创建OIDC认证提供商信息
+//请求方法: POST
 //请求地址: /api/provider-oidc
-export async function updateProviderOidc<ProviderOidcDetail>(  data: ProviderOidcUpdate,   options?: { [key: string]: any }) {
+export async function createProviderOidc<ProviderOidcDetail>(  data: ProviderOidcCreate,   options?: { [key: string]: any }) {
   return  request<ProviderOidcDetail>(`/api/provider-oidc`, {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -92,13 +92,13 @@ export async function updateProviderOidc<ProviderOidcDetail>(  data: ProviderOid
     ...(options || {}),
   });
 }
-//启用禁用
-//启用禁用,修改账户状态
-//请求方法: POST
-//请求地址: /api/provider-oidc/status
-export async function changeProviderOidcStatus(  data: ProviderOidcStatus,   options?: { [key: string]: any }) {
-  return  request(`/api/provider-oidc/status`, {
-    method: 'POST',
+//更新OIDC认证提供商信息
+//更新OIDC认证提供商信息
+//请求方法: PUT
+//请求地址: /api/provider-oidc
+export async function updateProviderOidc<ProviderOidcDetail>(  data: ProviderOidcUpdate,   options?: { [key: string]: any }) {
+  return  request<ProviderOidcDetail>(`/api/provider-oidc`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },

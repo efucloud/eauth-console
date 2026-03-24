@@ -28,7 +28,7 @@ const BaseAddress = "/app";
 
 
 const AdvancedForm: FC<Record<string, any>> = () => {
-  const colorPrimary=getColorPrimary();
+  const colorPrimary = getColorPrimary();
   const navigate = useNavigate();
   const intl = useIntl();
   const params = useParams();
@@ -41,7 +41,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     if (mode === Create) {
       detail = await createApplication(values as ApplicationCreate) as ApplicationDetail;
     } else {
-      values['id'] = Number(params.id);
+      values['id'] = params.id;
       detail = await updateApplication(values as ApplicationUpdate) as ApplicationDetail;
     }
     let user = detail as ApplicationDetail;
@@ -50,15 +50,15 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       navigate(`${BaseAddress}/detail/${user.id}`);
     }
   };
-   
-  
+
+
   const onInitData = async () => {
-    let initData = { enable: true,   } as ApplicationDetail;
+    let initData = { enable: true, } as ApplicationDetail;
     if (mode === Update) {
-      const res = await getApplication({ id: Number(params.id) });
+      const res = await getApplication({ id: params.id });
       initData = res as ApplicationDetail;
-       
-     
+
+
 
     }
     return initData;
@@ -66,20 +66,20 @@ const AdvancedForm: FC<Record<string, any>> = () => {
 
   const matchTypes = [
     {
-      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.equal'}),
+      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.equal' }),
       value: 'equal',
     },
     {
-      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.regex'}),
+      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.regex' }),
       value: 'regex',
     },
 
     {
-      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.prefix'}),
+      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.prefix' }),
       value: 'prefix',
     },
     {
-      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.contain'}),
+      label: intl.formatMessage({ id: 'model.application.redirect_uri.macth.contain' }),
       value: 'contain',
     },
   ];
@@ -97,7 +97,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       value: 'cas3',
     },
   ];
-  
+
   return (
     <ProForm
       layout="vertical"
@@ -113,7 +113,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       request={onInitData}
       onFinish={onFinish}
     >
-      <PageContainer  title={intl.formatMessage({ id: 'menu.application' })} header={{ breadcrumb: {}, onBack: () => navigate(`${BaseAddress}`) }}>
+      <PageContainer title={intl.formatMessage({ id: 'menu.application' })} header={{ breadcrumb: {}, onBack: () => navigate(`${BaseAddress}`) }}>
         <Card title={mode === Create ? intl.formatMessage({ id: 'model.create' }) : intl.formatMessage({ id: 'model.update' })}
           bordered={false}>
           <Row gutter={{ xs: 16, sm: 32, md: 64, lg: 128 }}>
@@ -143,18 +143,18 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             </Col>
             <Col lg={8} md={8} sm={24}>
               <ProFormSwitch
-                tooltip={{color: colorPrimary,title:intl.formatMessage({ id: 'model.application.enable.description' })}}
+                tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.application.enable.description' }) }}
                 label={intl.formatMessage({ id: 'model.application.enable' })}
                 name="enable"
               />
             </Col>
-           
-            
-            
+
+
+
           </Row>
           <Row gutter={{ xs: 16, sm: 32, md: 64, lg: 128 }}>
             <Col lg={12} md={12} sm={24}>
-              <ProFormText 
+              <ProFormText
                 label={intl.formatMessage({ id: 'model.application.redirectUri' })}
                 name="redirectUri"
                 rules={[
@@ -165,9 +165,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 ]}
               />
             </Col>
-           
+
             <Col lg={12} md={12} sm={24}>
-            <ProFormText
+              <ProFormText
                 label={intl.formatMessage({ id: 'model.application.home' })}
                 name="home"
                 rules={[
@@ -179,8 +179,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 ]}
               />
             </Col>
-            </Row>
-            <Row gutter={{ xs: 16, sm: 32, md: 64, lg: 128 }}>
+          </Row>
+          <Row gutter={{ xs: 16, sm: 32, md: 64, lg: 128 }}>
             <Col lg={24} md={24} sm={24}>
               <ProFormTextArea
                 label={intl.formatMessage({ id: 'model.application.description' })}
@@ -193,9 +193,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 ]}
               />
             </Col>
-            </Row>
+          </Row>
         </Card>
-     
+
       </PageContainer>
     </ProForm>
   );

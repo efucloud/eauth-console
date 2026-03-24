@@ -16,41 +16,41 @@ const ProviderOidcDetail: React.FC = () => {
   const params = useParams();
   const [instanceInfo, setInstanceInfo] = useState<ProviderOidcDetail>();
   const getInstanceInfo = async () => {
-    setInstanceInfo(await getProviderOidc({ id: Number(params.id) }) as ProviderOidcDetail);
+    setInstanceInfo(await getProviderOidc({ id: params.id }) as ProviderOidcDetail);
   }
   useEffect(() => { getInstanceInfo(); }, [params.id]);
 
   return (
     <PageContainer title={intl.formatMessage({ id: 'menu.provider.oidc' })} header={{ breadcrumb: {}, onBack: () => navigate(`${BaseAddress}`) }} >
-      <Card bordered={false} 
+      <Card bordered={false}
       >
-        <ProDescriptions style={{ marginBottom: 32}} column={2} title={(<Space><ProviderInLine provider={instanceInfo?.category ? instanceInfo.category : ''} height={25} /></Space>)}
-        extra={
-          <Space>
-            <Access accessible={access.systemAdminAccess === true}>
-              <Button type={'primary'} icon={<EditOutlined />} block
-                onClick={() => {
-                  navigate(
-                    {
-                      pathname: `${BaseAddress}/update/${params.id}`,
-                    },
-                    { replace: true },
-                  );
-                }}
-              ><FormattedMessage id="pages.operation.edit"  /></Button>
-            </Access>
-          </Space>
-        }>
+        <ProDescriptions style={{ marginBottom: 32 }} column={2} title={(<Space><ProviderInLine provider={instanceInfo?.category ? instanceInfo.category : ''} height={25} /></Space>)}
+          extra={
+            <Space>
+              <Access accessible={access.systemAdminAccess === true}>
+                <Button type={'primary'} icon={<EditOutlined />} block
+                  onClick={() => {
+                    navigate(
+                      {
+                        pathname: `${BaseAddress}/update/${params.id}`,
+                      },
+                      { replace: true },
+                    );
+                  }}
+                ><FormattedMessage id="pages.operation.edit" /></Button>
+              </Access>
+            </Space>
+          }>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.provider.oidc.name' })}>{instanceInfo?.name}</ProDescriptions.Item>
-           
+
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.provider.oidc.enable' })}
             valueEnum={{
               false: {
-                text: intl.formatMessage({ id: 'model.provider.oidc.enable.disable'}),
+                text: intl.formatMessage({ id: 'model.provider.oidc.enable.disable' }),
                 status: 'Error',
               },
               true: {
-                text: intl.formatMessage({ id: 'model.provider.oidc.enable.enable'}),
+                text: intl.formatMessage({ id: 'model.provider.oidc.enable.enable' }),
                 status: 'Success',
               },
             }}
@@ -63,7 +63,7 @@ const ProviderOidcDetail: React.FC = () => {
 
         </ProDescriptions>
       </Card>
-      <br/>
+      <br />
 
 
     </PageContainer>

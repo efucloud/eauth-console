@@ -18,7 +18,8 @@ export type ConfigCreate = {
 // ConfigDetail 配置详情
 export type ConfigDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间
@@ -48,7 +49,8 @@ export type ConfigDetailList = {
 // ConfigUpdate 配置修改
 export type ConfigUpdate = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //配置名称
   //最大长度: 255
   name: string;

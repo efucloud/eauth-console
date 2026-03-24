@@ -29,7 +29,8 @@ export type UserAuthProfileTempCreate = {
 // UserAuthProfileTempDetail 系统用户认证方式详情
 export type UserAuthProfileTempDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //请求码

@@ -1,7 +1,7 @@
 // MultiFactorAuthCreate 用户MFA信息创建
 export type MultiFactorAuthCreate = { 
   //所属用户
-  userId: number;
+  userId: string;
   //密钥
   //最大长度: 50
   secret: string;
@@ -15,13 +15,14 @@ export type MultiFactorAuthCreate = {
 // MultiFactorAuthDetail 用户MFA信息详情
 export type MultiFactorAuthDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间
   updatedAt: string;
   //所属用户
-  userId: number;
+  userId: string;
   //密钥
   //最大长度: 50
   secret: string;
@@ -42,7 +43,7 @@ export type MultiFactorAuthDetailList = {
 // MultiFactorAuthStatus 禁用后，用户将不能使用该认证方式登陆系统
 export type MultiFactorAuthStatus = { 
   //主键
-  id?: number;
+  id?: string;
   //状态：是否已绑定
   //默认值: unbound
   //最大长度: 50

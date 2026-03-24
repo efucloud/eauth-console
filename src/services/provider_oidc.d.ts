@@ -33,7 +33,8 @@ export type ProviderOidcCreate = {
 // ProviderOidcDetail OIDC提供商详情
 export type ProviderOidcDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间
@@ -86,7 +87,8 @@ export type ProviderOidcStatus = {
 // ProviderOidcUpdate OIDC提供商修改
 export type ProviderOidcUpdate = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //提供商名称
   //最大长度: 255
   name: string;

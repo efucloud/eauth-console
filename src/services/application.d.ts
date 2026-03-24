@@ -30,7 +30,8 @@ export type ApplicationCreate = {
 // ApplicationDetail 普通应用详情
 export type ApplicationDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间
@@ -80,7 +81,8 @@ export type ApplicationStatus = {
 // ApplicationUpdate 普通应用修改
 export type ApplicationUpdate = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //应用名称
   //最大长度: 255
   name: string;
@@ -106,7 +108,8 @@ export type ApplicationUpdate = {
 // ShortApplication 简单应用信息
 export type ShortApplication = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间

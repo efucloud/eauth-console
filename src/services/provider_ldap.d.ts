@@ -16,16 +16,14 @@ export type ProviderLdapCreate = {
   //认证提供商
   //最大长度: 255
   provider: string;
-  //是否同步用户
-  //默认值: false
-  syncUser: boolean;
   //LDAP配置
   ldapConfig?: LdapConfig;
 }; 
 // ProviderLdapDetail LDAP提供商详情
 export type ProviderLdapDetail = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //创建时间
   createdAt: string;
   //创建时间
@@ -42,9 +40,6 @@ export type ProviderLdapDetail = {
   //认证提供商
   //最大长度: 255
   provider: string;
-  //是否同步用户
-  //默认值: false
-  syncUser: boolean;
   //LDAP配置
   ldapConfig?: LdapConfig;
 }; 
@@ -58,7 +53,8 @@ export type ProviderLdapDetailList = {
 // ProviderLdapUpdate LDAP提供商修改
 export type ProviderLdapUpdate = { 
   //主键
-  id: number;
+  //最大长度: 50
+  id: string;
   //名称
   //最大长度: 255
   name: string;
@@ -73,9 +69,6 @@ export type ProviderLdapUpdate = {
   //认证提供商
   //最大长度: 255
   provider: string;
-  //是否同步用户
-  //默认值: false
-  syncUser: boolean;
   //LDAP配置
   ldapConfig?: LdapConfig;
 }; 

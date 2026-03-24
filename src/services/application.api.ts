@@ -1,8 +1,22 @@
 import { request } from '@umijs/max';
 
-import { ApplicationDetail, ApplicationCreate, ApplicationUpdate, ApplicationStatus, ApplicationDetailList } from './application.d';
+import { ApplicationDetail, ApplicationUpdate, ApplicationCreate, ApplicationStatus, ApplicationDetailList } from './application.d';
 import { BatchOperationIds } from './common.d';
 
+//更新普通应用信息
+//更新普通应用信息
+//请求方法: PUT
+//请求地址: /api/application
+export async function updateApplication<ApplicationDetail>(  data: ApplicationUpdate,   options?: { [key: string]: any }) {
+  return  request<ApplicationDetail>(`/api/application`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+    ...(options || {}),
+  });
+}
 //创建普通应用
 //创建普通应用信息
 //请求方法: POST
@@ -17,13 +31,13 @@ export async function createApplication<ApplicationDetail>(  data: ApplicationCr
     ...(options || {}),
   });
 }
-//更新普通应用信息
-//更新普通应用信息
-//请求方法: PUT
+//删除普通应用
+//删除普通应用信息详情
+//请求方法: DELETE
 //请求地址: /api/application
-export async function updateApplication<ApplicationDetail>(  data: ApplicationUpdate,   options?: { [key: string]: any }) {
-  return  request<ApplicationDetail>(`/api/application`, {
-    method: 'PUT',
+export async function deleteApplication(  data: BatchOperationIds,   options?: { [key: string]: any }) {
+  return  request(`/api/application`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -49,22 +63,22 @@ export async function changeApplicationStatus(  data: ApplicationStatus,   optio
 //获取普通应用信息
 //请求方法: GET
 //请求地址: /api/application
-//参数名: name 参数类型: string 参数位置: query 是否必须: false  参数说明: 名称
-//参数名: code 参数类型: string 参数位置: query 是否必须: false  参数说明: 编码
-//参数名: id 参数类型: number 参数位置: query 是否必须: false  参数说明: 数据库记录ID
 //参数名: search 参数类型: string 参数位置: query 是否必须: false  参数说明: 搜索
 //参数名: current 参数类型: number 参数位置: query 是否必须: false  参数说明: 页码
 //参数名: pageSize 参数类型: number 参数位置: query 是否必须: false  参数说明: 每页大小
 //参数名: order 参数类型: string 参数位置: query 是否必须: false  参数说明: 排序
+//参数名: name 参数类型: string 参数位置: query 是否必须: false  参数说明: 名称
+//参数名: code 参数类型: string 参数位置: query 是否必须: false  参数说明: 编码
+//参数名: id 参数类型: number 参数位置: query 是否必须: false  参数说明: 数据库记录ID
 export async function listApplication<ApplicationDetailList>(
   params: {
-    id?:number;// 数据库记录ID
-    search?:string;// 搜索
-    current?:number;// 页码
     pageSize?:number;// 每页大小
     order?:string;// 排序
-    name?:string;// 名称
     code?:string;// 编码
+    current?:number;// 页码
+    name?:string;// 名称
+    id?:number;// 数据库记录ID
+    search?:string;// 搜索
   },
   options?: { [key: string]: any }) {
   return  request<ApplicationDetailList>(`/api/application`, {
@@ -73,20 +87,6 @@ export async function listApplication<ApplicationDetailList>(
       'Content-Type': 'application/json',
     },
     params: params,
-    ...(options || {}),
-  });
-}
-//删除普通应用
-//删除普通应用信息详情
-//请求方法: DELETE
-//请求地址: /api/application
-export async function deleteApplication(  data: BatchOperationIds,   options?: { [key: string]: any }) {
-  return  request(`/api/application`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
     ...(options || {}),
   });
 }

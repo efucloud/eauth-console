@@ -2,7 +2,7 @@
 export type ApplicationAuthTop = { 
   name?: string;
   code?: string;
-  applicationId?: number;
+  applicationId?: string;
   value?: number;
   home?: string;
   description?: string;
