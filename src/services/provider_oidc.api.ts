@@ -1,7 +1,7 @@
 import { request } from '@umijs/max';
 
 import { BatchOperationIds } from './common.d';
-import { ProviderOidcDetail, ProviderOidcUpdate, ProviderOidcDetailList, ProviderOidcCreate, ProviderOidcStatus } from './provider_oidc.d';
+import { ProviderOidcDetailList, ProviderOidcDetail, ProviderOidcCreate, ProviderOidcUpdate, ProviderOidcStatus } from './provider_oidc.d';
 
 //删除OIDC认证提供商
 //删除OIDC认证提供商信息详情
@@ -10,6 +10,47 @@ import { ProviderOidcDetail, ProviderOidcUpdate, ProviderOidcDetailList, Provide
 export async function deleteProviderOidc(  data: BatchOperationIds,   options?: { [key: string]: any }) {
   return  request(`/api/provider-oidc`, {
     method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+    ...(options || {}),
+  });
+}
+//获取OIDC认证提供商列表
+//获取OIDC认证提供商信息
+//请求方法: GET
+//请求地址: /api/provider-oidc
+//参数名: code 参数类型: string 参数位置: query 是否必须: false  参数说明: 编码
+//参数名: current 参数类型: number 参数位置: query 是否必须: false  参数说明: 页码
+//参数名: pageSize 参数类型: number 参数位置: query 是否必须: false  参数说明: 每页大小
+//参数名: order 参数类型: string 参数位置: query 是否必须: false  参数说明: 排序
+//参数名: name 参数类型: string 参数位置: query 是否必须: false  参数说明: 名称
+export async function listProviderOidc<ProviderOidcDetailList>(
+  params: {
+    pageSize?:number;// 每页大小
+    order?:string;// 排序
+    name?:string;// 名称
+    code?:string;// 编码
+    current?:number;// 页码
+  },
+  options?: { [key: string]: any }) {
+  return  request<ProviderOidcDetailList>(`/api/provider-oidc`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: params,
+    ...(options || {}),
+  });
+}
+//创建OIDC认证提供商
+//创建OIDC认证提供商信息
+//请求方法: POST
+//请求地址: /api/provider-oidc
+export async function createProviderOidc<ProviderOidcDetail>(  data: ProviderOidcCreate,   options?: { [key: string]: any }) {
+  return  request<ProviderOidcDetail>(`/api/provider-oidc`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -35,10 +76,10 @@ export async function updateProviderOidc<ProviderOidcDetail>(  data: ProviderOid
 //获取OIDC认证提供商信息详情
 //请求方法: GET
 //请求地址: /api/provider-oidc/{id}
-//参数名: id 参数类型: number 参数位置: path 是否必须: true  参数说明: 记录ID
+//参数名: id 参数类型: string 参数位置: path 是否必须: true  参数说明: 记录ID
 export async function getProviderOidc<ProviderOidcDetail>(
   params: {
-    id: number;// 记录ID
+    id: string;// 记录ID
   },
   options?: { [key: string]: any }) {
   const { id, ...rest } = params;
@@ -48,47 +89,6 @@ export async function getProviderOidc<ProviderOidcDetail>(
       'Content-Type': 'application/json',
     },
     params: { ...rest },
-    ...(options || {}),
-  });
-}
-//获取OIDC认证提供商列表
-//获取OIDC认证提供商信息
-//请求方法: GET
-//请求地址: /api/provider-oidc
-//参数名: current 参数类型: number 参数位置: query 是否必须: false  参数说明: 页码
-//参数名: pageSize 参数类型: number 参数位置: query 是否必须: false  参数说明: 每页大小
-//参数名: order 参数类型: string 参数位置: query 是否必须: false  参数说明: 排序
-//参数名: name 参数类型: string 参数位置: query 是否必须: false  参数说明: 名称
-//参数名: code 参数类型: string 参数位置: query 是否必须: false  参数说明: 编码
-export async function listProviderOidc<ProviderOidcDetailList>(
-  params: {
-    name?:string;// 名称
-    code?:string;// 编码
-    current?:number;// 页码
-    pageSize?:number;// 每页大小
-    order?:string;// 排序
-  },
-  options?: { [key: string]: any }) {
-  return  request<ProviderOidcDetailList>(`/api/provider-oidc`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    params: params,
-    ...(options || {}),
-  });
-}
-//创建OIDC认证提供商
-//创建OIDC认证提供商信息
-//请求方法: POST
-//请求地址: /api/provider-oidc
-export async function createProviderOidc<ProviderOidcDetail>(  data: ProviderOidcCreate,   options?: { [key: string]: any }) {
-  return  request<ProviderOidcDetail>(`/api/provider-oidc`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
     ...(options || {}),
   });
 }

@@ -1,7 +1,7 @@
 import { request } from '@umijs/max';
 
-import { ShortUser, UserResetPassword } from './user.d';
 import { ExistResponse } from './common.d';
+import { ShortUser, UserResetPassword } from './user.d';
 
 //获取重置密码用户信息
 //获取重置密码用户信息

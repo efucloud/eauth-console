@@ -1,40 +1,20 @@
 import { request } from '@umijs/max';
 
-import { BatchOperationIds, AccessTokenResponse, LoginByFaceIdData } from './common.d';
+import { FaceRecognitionStatus, FaceRecognitionCreate, FaceRecognitionDetailList } from './face_recognition.d';
 import { ProviderOidcDetail } from './provider_oidc.d';
-import { FaceRecognitionCreate, FaceRecognitionDetailList, FaceRecognitionStatus } from './face_recognition.d';
+import { BatchOperationIds, AccessTokenResponse, LoginByFaceIdData } from './common.d';
 
-//删除人脸识别数据
-//删除人脸识别数据信息详情
-//请求方法: DELETE
-//请求地址: /api/face-recognition
-export async function deleteUserFaceRecognition(  data: BatchOperationIds,   options?: { [key: string]: any }) {
-  return  request(`/api/face-recognition`, {
-    method: 'DELETE',
+//启用禁用
+//启用禁用,修改人脸数据状态
+//请求方法: POST
+//请求地址: /api/face-recognition/status
+export async function changeUserFaceRecognitionStatus(  data: FaceRecognitionStatus,   options?: { [key: string]: any }) {
+  return  request(`/api/face-recognition/status`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     data,
-    ...(options || {}),
-  });
-}
-//判断用户是否有人脸识别数据
-//根据用户名判断用户是否有人脸识别数据
-//请求方法: GET
-//请求地址: /api/face-recognition/check/{username}
-//参数名: username 参数类型: string 参数位置: path 是否必须: true  参数说明: 登录用户名
-export async function checkUserHasFaceIdData(
-  params: {
-    username: string;// 登录用户名
-  },
-  options?: { [key: string]: any }) {
-  const { username, ...rest } = params;
-  return  request(`/api/face-recognition/check/${username}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    params: { ...rest },
     ...(options || {}),
   });
 }
@@ -65,6 +45,20 @@ export async function createUserFaceRecognition<ProviderOidcDetail>(  data: Face
     ...(options || {}),
   });
 }
+//删除人脸识别数据
+//删除人脸识别数据信息详情
+//请求方法: DELETE
+//请求地址: /api/face-recognition
+export async function deleteUserFaceRecognition(  data: BatchOperationIds,   options?: { [key: string]: any }) {
+  return  request(`/api/face-recognition`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+    ...(options || {}),
+  });
+}
 //获取人脸识别数据列表
 //获取人脸识别数据列表
 //请求方法: GET
@@ -75,10 +69,10 @@ export async function createUserFaceRecognition<ProviderOidcDetail>(  data: Face
 //参数名: userId 参数类型: number 参数位置: query 是否必须: false  参数说明: 用户ID
 export async function listUserFaceRecognition<FaceRecognitionDetailList>(
   params: {
+    userId?:number;// 用户ID
     current?:number;// 页码
     pageSize?:number;// 每页大小
     order?:string;// 排序
-    userId?:number;// 用户ID
   },
   options?: { [key: string]: any }) {
   return  request<FaceRecognitionDetailList>(`/api/face-recognition`, {
@@ -104,17 +98,23 @@ export async function loginByFaceIdData<AccessTokenResponse>(  data: LoginByFace
     ...(options || {}),
   });
 }
-//启用禁用
-//启用禁用,修改人脸数据状态
-//请求方法: POST
-//请求地址: /api/face-recognition/status
-export async function changeUserFaceRecognitionStatus(  data: FaceRecognitionStatus,   options?: { [key: string]: any }) {
-  return  request(`/api/face-recognition/status`, {
-    method: 'POST',
+//判断用户是否有人脸识别数据
+//根据用户名判断用户是否有人脸识别数据
+//请求方法: GET
+//请求地址: /api/face-recognition/check/{username}
+//参数名: username 参数类型: string 参数位置: path 是否必须: true  参数说明: 登录用户名
+export async function checkUserHasFaceIdData(
+  params: {
+    username: string;// 登录用户名
+  },
+  options?: { [key: string]: any }) {
+  const { username, ...rest } = params;
+  return  request(`/api/face-recognition/check/${username}`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    data,
+    params: { ...rest },
     ...(options || {}),
   });
 }

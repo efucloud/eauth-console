@@ -17,6 +17,19 @@ export async function deleteUserMultiFactorAuth(  data: BatchOperationIds,   opt
     ...(options || {}),
   });
 }
+//获取个人MFA信息列表
+//获取个人MFA信息列表
+//请求方法: GET
+//请求地址: /api/mfa/personal
+export async function getMultiFactorAuthPersonal<MultiFactorAuthDetail>(  options?: { [key: string]: any }) {
+  return  request<MultiFactorAuthDetail>(`/api/mfa/personal`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    ...(options || {}),
+  });
+}
 //个人重新绑定MFA
 //个人重新绑定MFA， 在个人中心页面操作 
 //请求方法: POST
@@ -28,19 +41,6 @@ export async function boundMultiFactorAuthPersonal<MultiFactorAuthDetail>(  data
       'Content-Type': 'application/json',
     },
     data,
-    ...(options || {}),
-  });
-}
-//获取个人MFA信息列表
-//获取个人MFA信息列表
-//请求方法: GET
-//请求地址: /api/mfa/personal
-export async function getMultiFactorAuthPersonal<MultiFactorAuthDetail>(  options?: { [key: string]: any }) {
-  return  request<MultiFactorAuthDetail>(`/api/mfa/personal`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     ...(options || {}),
   });
 }
