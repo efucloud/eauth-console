@@ -9,14 +9,14 @@ import { getColorPrimary } from '@/utils/global';
 const BaseAddress = "/app";
 
 const AppDetail: React.FC = () => {
-  const colorPrimary=getColorPrimary();
+  const colorPrimary = getColorPrimary();
   const access = useAccess();
   const navigate = useNavigate();
   const intl = useIntl();
   const params = useParams();
   const [appInfo, setAppInfo] = useState<ApplicationDetail>();
   const getInfo = async () => {
-    const data = await getApplication({ id:  });
+    const data = await getApplication({ id: params.id! });
     setAppInfo(data as ApplicationDetail);
   }
   useEffect(() => { getInfo(); }, [params.id]);
@@ -29,7 +29,7 @@ const AppDetail: React.FC = () => {
       text: intl.formatMessage({ id: 'model.enable.bool.true' }),
       status: 'Success',
     },
-  }; 
+  };
   return (
     <PageContainer title={intl.formatMessage({ id: 'menu.application' })} header={{ breadcrumb: {}, onBack: () => navigate(`${BaseAddress}`) }} >
       <Card bordered={false}
@@ -53,7 +53,7 @@ const AppDetail: React.FC = () => {
           }>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.name' })}>{appInfo?.name}</ProDescriptions.Item>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.code' })}>{appInfo?.code}</ProDescriptions.Item>
-          <ProDescriptions.Item tooltip={{color: colorPrimary,title:intl.formatMessage({ id: 'model.application.enable.description' })} }label={intl.formatMessage({ id: 'model.application.enable' })}
+          <ProDescriptions.Item tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.application.enable.description' }) }} label={intl.formatMessage({ id: 'model.application.enable' })}
             valueEnum={{
               false: {
                 text: intl.formatMessage({ id: 'model.application.enable.disable' }),
@@ -65,15 +65,15 @@ const AppDetail: React.FC = () => {
               },
             }}
           >{appInfo?.enable}</ProDescriptions.Item>
-          <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.home' })}><a style={{color:colorPrimary}} href={appInfo?.home} target='_blank' rel="noreferrer">{appInfo?.home}</a></ProDescriptions.Item>
-          <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.redirectUri' })}><a style={{color:colorPrimary}} href={appInfo?.home} target='_blank' rel="noreferrer">{appInfo?.redirectUri}</a></ProDescriptions.Item>
-          <ProDescriptions.Item copyable ellipsis tooltip={{color: colorPrimary,title:intl.formatMessage({ id: 'model.application.clientId.tooltip' })}} label={intl.formatMessage({ id: 'model.application.clientId' })}>{appInfo?.clientId}</ProDescriptions.Item>
-              <ProDescriptions.Item copyable ellipsis tooltip={{color: colorPrimary,title:intl.formatMessage({ id: 'model.application.clientSecret.tooltip' })}} label={intl.formatMessage({ id: 'model.application.clientSecret' })}>{appInfo?.clientSecret}</ProDescriptions.Item>
-            
-            <ProDescriptions.Item valueType='textarea' label={intl.formatMessage({ id: 'model.application.description' })}>{appInfo?.description}</ProDescriptions.Item>
+          <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.home' })}><a style={{ color: colorPrimary }} href={appInfo?.home} target='_blank' rel="noreferrer">{appInfo?.home}</a></ProDescriptions.Item>
+          <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.redirectUri' })}><a style={{ color: colorPrimary }} href={appInfo?.home} target='_blank' rel="noreferrer">{appInfo?.redirectUri}</a></ProDescriptions.Item>
+          <ProDescriptions.Item copyable ellipsis tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.application.clientId.tooltip' }) }} label={intl.formatMessage({ id: 'model.application.clientId' })}>{appInfo?.clientId}</ProDescriptions.Item>
+          <ProDescriptions.Item copyable ellipsis tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.application.clientSecret.tooltip' }) }} label={intl.formatMessage({ id: 'model.application.clientSecret' })}>{appInfo?.clientSecret}</ProDescriptions.Item>
+
+          <ProDescriptions.Item valueType='textarea' label={intl.formatMessage({ id: 'model.application.description' })}>{appInfo?.description}</ProDescriptions.Item>
         </ProDescriptions>
       </Card>
-      
+
     </PageContainer>
   );
 };

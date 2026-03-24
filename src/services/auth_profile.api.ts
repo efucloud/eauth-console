@@ -1,32 +1,25 @@
 import { request } from '@umijs/max';
 
-import { UserAuthProfileDetailList, UserAuthProfileDetail, UserAuthProfileStatus } from './user_auth_profile.d';
+import { UserAuthProfileDetail, UserAuthProfileDetailList, UserAuthProfileStatus } from './user_auth_profile.d';
 import { BatchOperationIds } from './common.d';
 
-//获取个人的第三方认证方式
-//获取个人的第三方认证方式
+//获取第三方认证详情
+//获取第三方认证信息详情
 //请求方法: GET
-//请求地址: /api/auth-profile/personal/authed
-export async function getUserPersonalAuthProfile<UserAuthProfileDetailList>(  options?: { [key: string]: any }) {
-  return  request<UserAuthProfileDetailList>(`/api/auth-profile/personal/authed`, {
+//请求地址: /api/auth-profile/{id}
+//参数名: id 参数类型: number 参数位置: path 是否必须: true  参数说明: 记录ID
+export async function getUserAuthProfile<UserAuthProfileDetail>(
+  params: {
+    id: number;// 记录ID
+  },
+  options?: { [key: string]: any }) {
+  const { id, ...rest } = params;
+  return  request<UserAuthProfileDetail>(`/api/auth-profile/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    ...(options || {}),
-  });
-}
-//删除第三方认证
-//删除第三方认证信息详情
-//请求方法: DELETE
-//请求地址: /api/auth-profile
-export async function deleteUserAuthProfile(  data: BatchOperationIds,   options?: { [key: string]: any }) {
-  return  request(`/api/auth-profile`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
+    params: { ...rest },
     ...(options || {}),
   });
 }
@@ -50,23 +43,17 @@ export async function getUserAuthProfileByUserId<UserAuthProfileDetailList>(
     ...(options || {}),
   });
 }
-//获取第三方认证详情
-//获取第三方认证信息详情
-//请求方法: GET
-//请求地址: /api/auth-profile/{id}
-//参数名: id 参数类型: number 参数位置: path 是否必须: true  参数说明: 记录ID
-export async function getUserAuthProfile<UserAuthProfileDetail>(
-  params: {
-    id: number;// 记录ID
-  },
-  options?: { [key: string]: any }) {
-  const { id, ...rest } = params;
-  return  request<UserAuthProfileDetail>(`/api/auth-profile/${id}`, {
-    method: 'GET',
+//删除第三方认证
+//删除第三方认证信息详情
+//请求方法: DELETE
+//请求地址: /api/auth-profile
+export async function deleteUserAuthProfile(  data: BatchOperationIds,   options?: { [key: string]: any }) {
+  return  request(`/api/auth-profile`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    params: { ...rest },
+    data,
     ...(options || {}),
   });
 }
@@ -81,11 +68,11 @@ export async function getUserAuthProfile<UserAuthProfileDetail>(
 //参数名: code 参数类型: string 参数位置: query 是否必须: false  参数说明: 编码
 export async function listUserAuthProfile<UserAuthProfileDetailList>(
   params: {
-    name?:string;// 名称
-    code?:string;// 编码
     current?:number;// 页码
     pageSize?:number;// 每页大小
     order?:string;// 排序
+    name?:string;// 名称
+    code?:string;// 编码
   },
   options?: { [key: string]: any }) {
   return  request<UserAuthProfileDetailList>(`/api/auth-profile`, {
@@ -94,6 +81,19 @@ export async function listUserAuthProfile<UserAuthProfileDetailList>(
       'Content-Type': 'application/json',
     },
     params: params,
+    ...(options || {}),
+  });
+}
+//获取个人的第三方认证方式
+//获取个人的第三方认证方式
+//请求方法: GET
+//请求地址: /api/auth-profile/personal/authed
+export async function getUserPersonalAuthProfile<UserAuthProfileDetailList>(  options?: { [key: string]: any }) {
+  return  request<UserAuthProfileDetailList>(`/api/auth-profile/personal/authed`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     ...(options || {}),
   });
 }
