@@ -1,5 +1,5 @@
 // ApplicationCreate 普通应用创建
-export type ApplicationCreate = { 
+export type ApplicationCreate = {
   //应用名称
   //最大长度: 255
   name: string;
@@ -26,9 +26,13 @@ export type ApplicationCreate = {
   //OIDC 回调地址
   //最大长度: 1000
   redirectUri: string;
-}; 
+  //OIDC 重定向地址匹配类型
+  //默认值: equal
+  //最大长度: 50
+  redirectUriMatchType: string;
+};
 // ApplicationDetail 普通应用详情
-export type ApplicationDetail = { 
+export type ApplicationDetail = {
   //主键
   //最大长度: 50
   id: string;
@@ -62,24 +66,28 @@ export type ApplicationDetail = {
   //OIDC 回调地址
   //最大长度: 1000
   redirectUri: string;
-}; 
+  //OIDC 重定向地址匹配类型
+  //默认值: equal
+  //最大长度: 50
+  redirectUriMatchType: string;
+};
 // ApplicationDetailList 普通应用列表响应
-export type ApplicationDetailList = { 
+export type ApplicationDetailList = {
   //当前页数据
   data?: ShortApplication[];
   //数据库满足条件的数据总数
   total: number;
-}; 
+};
 // ApplicationStatus 普通应用状态
 // 状态为disable时将不在用户前端显示，同时普通应用中的应用将不能认证
-export type ApplicationStatus = { 
+export type ApplicationStatus = {
   //主键
   ids: number[];
   //是否有效
   enable: boolean;
-}; 
+};
 // ApplicationUpdate 普通应用修改
-export type ApplicationUpdate = { 
+export type ApplicationUpdate = {
   //主键
   //最大长度: 50
   id: string;
@@ -104,9 +112,13 @@ export type ApplicationUpdate = {
   //OIDC 回调地址
   //最大长度: 1000
   redirectUri: string;
-}; 
+  //OIDC 重定向地址匹配类型
+  //默认值: equal
+  //最大长度: 50
+  redirectUriMatchType: string;
+};
 // ShortApplication 简单应用信息
-export type ShortApplication = { 
+export type ShortApplication = {
   //主键
   //最大长度: 50
   id: string;
@@ -140,4 +152,8 @@ export type ShortApplication = {
   //OIDC 回调地址
   //最大长度: 1000
   redirectUri: string;
-}; 
+  //OIDC 重定向地址匹配类型
+  //默认值: equal
+  //最大长度: 50
+  redirectUriMatchType: string;
+};

@@ -67,6 +67,22 @@ const AppDetail: React.FC = () => {
           >{appInfo?.enable}</ProDescriptions.Item>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.home' })}><a style={{ color: colorPrimary }} href={appInfo?.home} target='_blank' rel="noreferrer">{appInfo?.home}</a></ProDescriptions.Item>
           <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.redirectUri' })}><a style={{ color: colorPrimary }} href={appInfo?.home} target='_blank' rel="noreferrer">{appInfo?.redirectUri}</a></ProDescriptions.Item>
+          <ProDescriptions.Item label={intl.formatMessage({ id: 'model.application.redirectUriMatchType' })}
+            valueEnum={{
+              'equal': {
+                text: intl.formatMessage({ id: 'model.application.redirect_uri.macth.equal' }),
+              },
+              'regex': {
+                text: intl.formatMessage({ id: 'model.application.redirect_uri.macth.regex' }),
+              },
+              'prefix': {
+                text: intl.formatMessage({ id: 'model.application.redirect_uri.macth.prefix' }),
+              },
+              'contain': {
+                text: intl.formatMessage({ id: 'model.application.redirect_uri.macth.contain' }),
+              },
+            }}
+          >{appInfo?.redirectUriMatchType}</ProDescriptions.Item>
           <ProDescriptions.Item copyable ellipsis tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.application.clientId.tooltip' }) }} label={intl.formatMessage({ id: 'model.application.clientId' })}>{appInfo?.clientId}</ProDescriptions.Item>
           <ProDescriptions.Item copyable ellipsis tooltip={{ color: colorPrimary, title: intl.formatMessage({ id: 'model.application.clientSecret.tooltip' }) }} label={intl.formatMessage({ id: 'model.application.clientSecret' })}>{appInfo?.clientSecret}</ProDescriptions.Item>
 

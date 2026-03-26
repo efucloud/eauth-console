@@ -165,7 +165,19 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 ]}
               />
             </Col>
-
+            <Col lg={8} md={12} sm={24}   >
+              <ProFormSelect
+                label={intl.formatMessage({ id: 'model.application.redirectUriMatchType' })}
+                name="redirectUriMatchType"
+                rules={[
+                  {
+                    required: true,
+                    message: intl.formatMessage({ id: 'pages.input.text.tips' }) + intl.formatMessage({ id: 'model.application.redirectUriMatchType' }),
+                  },
+                ]}
+                options={matchTypes}
+              />
+            </Col>
             <Col lg={12} md={12} sm={24}>
               <ProFormText
                 label={intl.formatMessage({ id: 'model.application.home' })}
