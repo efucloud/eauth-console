@@ -1,6 +1,7 @@
 // AppAuthRecordCreate 应用认证记录创建
 export type AppAuthRecordCreate = { 
   //应用ID
+  //最大长度: 50
   applicationId?: string;
   //响应编码 返回给浏览器客户端
   //最大长度: 50
@@ -12,6 +13,7 @@ export type AppAuthRecordCreate = {
   //最大长度: 20
   codeChallengeMethod?: string;
   //用户ID
+  //最大长度: 50
   userId: string;
   //OIDC nonce
   //最大长度: 255
@@ -27,6 +29,7 @@ export type AppAuthRecordDetail = {
   //创建时间
   updatedAt: string;
   //应用ID
+  //最大长度: 50
   applicationId?: string;
   //响应编码 返回给浏览器客户端
   //最大长度: 50
@@ -38,6 +41,7 @@ export type AppAuthRecordDetail = {
   //最大长度: 20
   codeChallengeMethod?: string;
   //用户ID
+  //最大长度: 50
   userId: string;
   //OIDC nonce
   //最大长度: 255

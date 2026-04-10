@@ -18,6 +18,11 @@ const ProvicerOidcCardList: React.FC = () => {
   const allProviders = ['gitlab', 'github', 'wechat', 'alipay', 'feiShu', 'weibo', 'wechatWork', 'qq', 'dingTalk', 'gitee', 'baidu', 'tiktok', 'bilibili', 'custom'];
   const colorPrimary = getColorPrimary();
 
+  const hasProviderConfig = (item: ProviderOidcDetail) => {
+    const id = String(item.id ?? '').trim();
+    return id !== '' && id !== '0';
+  };
+
   const getProviders = async () => {
     const data = await listProviderOidc({}) as ProviderOidcDetailList;
     let providers = [] as ProviderOidcDetail[];
@@ -91,7 +96,8 @@ const ProvicerOidcCardList: React.FC = () => {
   };
   const cardExtra = (item: ProviderOidcDetail): React.ReactNode[] => {
     const nodes = [] as React.ReactNode[];
-    if (item.authorizationEndpoint !== '') {
+    const configured = hasProviderConfig(item);
+    if (configured) {
       if (item.enable === true) {
         if (access.systemEditAccess === true) {
           nodes.push(
@@ -133,7 +139,7 @@ const ProvicerOidcCardList: React.FC = () => {
         }
       }
     }
-    if (item.id && item.id > 0) {
+    if (configured) {
       if (access.systemEditAccess === true) {
         nodes.push(
           <a
@@ -147,8 +153,8 @@ const ProvicerOidcCardList: React.FC = () => {
                 { replace: true },
               );
             }}
-          >
-            <FormattedMessage id="pages.operation.edit" defaultMessage="更新" />&nbsp;&nbsp;
+              >
+            <FormattedMessage id="pages.operation.edit" defaultMessage="修改" />&nbsp;&nbsp;
           </a>
 
         );
@@ -235,4 +241,3 @@ const ProvicerOidcCardList: React.FC = () => {
   );
 };
 export default ProvicerOidcCardList;
-

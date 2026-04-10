@@ -1,6 +1,7 @@
 // MultiFactorAuthCreate 用户MFA信息创建
 export type MultiFactorAuthCreate = { 
   //所属用户
+  //最大长度: 50
   userId: string;
   //密钥
   //最大长度: 50
@@ -22,6 +23,7 @@ export type MultiFactorAuthDetail = {
   //创建时间
   updatedAt: string;
   //所属用户
+  //最大长度: 50
   userId: string;
   //密钥
   //最大长度: 50

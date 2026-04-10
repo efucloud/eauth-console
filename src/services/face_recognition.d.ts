@@ -1,6 +1,7 @@
 // FaceRecognitionCreate 用户人脸识别信息创建
 export type FaceRecognitionCreate = { 
   //用户ID
+  //最大长度: 50
   userId: string;
   //是否有效
   //默认值: true
@@ -21,7 +22,8 @@ export type FaceRecognitionDetail = {
   //创建时间
   updatedAt: string;
   //用户ID
-  userId: number;
+  //最大长度: 50
+  userId: string;
   //是否有效
   //默认值: true
   enable: boolean;

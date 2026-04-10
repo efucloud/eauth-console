@@ -1,23 +1,9 @@
 import { request } from '@umijs/max';
 
-import { FaceRecognitionStatus, FaceRecognitionCreate, FaceRecognitionDetailList } from './face_recognition.d';
 import { ProviderOidcDetail } from './provider_oidc.d';
-import { BatchOperationIds, AccessTokenResponse, LoginByFaceIdData } from './common.d';
+import { FaceRecognitionCreate, FaceRecognitionStatus, FaceRecognitionDetailList } from './face_recognition.d';
+import { AccessTokenResponse, LoginByFaceIdData, BatchOperationIds } from './common.d';
 
-//启用禁用
-//启用禁用,修改人脸数据状态
-//请求方法: POST
-//请求地址: /api/face-recognition/status
-export async function changeUserFaceRecognitionStatus(  data: FaceRecognitionStatus,   options?: { [key: string]: any }) {
-  return  request(`/api/face-recognition/status`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
-    ...(options || {}),
-  });
-}
 //获取个人人脸识别信息列表
 //获取个人人脸识别信息列表
 //请求方法: GET
@@ -37,6 +23,34 @@ export async function getFaceRecognitionPersonal(  options?: { [key: string]: an
 //请求地址: /api/face-recognition
 export async function createUserFaceRecognition<ProviderOidcDetail>(  data: FaceRecognitionCreate,   options?: { [key: string]: any }) {
   return  request<ProviderOidcDetail>(`/api/face-recognition`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+    ...(options || {}),
+  });
+}
+//人脸识别登录
+//通过人脸识别数据登录
+//请求方法: POST
+//请求地址: /api/face-recognition/login
+export async function loginByFaceIdData<AccessTokenResponse>(  data: LoginByFaceIdData,   options?: { [key: string]: any }) {
+  return  request<AccessTokenResponse>(`/api/face-recognition/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+    ...(options || {}),
+  });
+}
+//启用禁用
+//启用禁用,修改人脸数据状态
+//请求方法: POST
+//请求地址: /api/face-recognition/status
+export async function changeUserFaceRecognitionStatus(  data: FaceRecognitionStatus,   options?: { [key: string]: any }) {
+  return  request(`/api/face-recognition/status`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -69,10 +83,10 @@ export async function deleteUserFaceRecognition(  data: BatchOperationIds,   opt
 //参数名: userId 参数类型: number 参数位置: query 是否必须: false  参数说明: 用户ID
 export async function listUserFaceRecognition<FaceRecognitionDetailList>(
   params: {
-    userId?:number;// 用户ID
     current?:number;// 页码
     pageSize?:number;// 每页大小
     order?:string;// 排序
+    userId?:number;// 用户ID
   },
   options?: { [key: string]: any }) {
   return  request<FaceRecognitionDetailList>(`/api/face-recognition`, {
@@ -81,20 +95,6 @@ export async function listUserFaceRecognition<FaceRecognitionDetailList>(
       'Content-Type': 'application/json',
     },
     params: params,
-    ...(options || {}),
-  });
-}
-//人脸识别登录
-//通过人脸识别数据登录
-//请求方法: POST
-//请求地址: /api/face-recognition/login
-export async function loginByFaceIdData<AccessTokenResponse>(  data: LoginByFaceIdData,   options?: { [key: string]: any }) {
-  return  request<AccessTokenResponse>(`/api/face-recognition/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
     ...(options || {}),
   });
 }

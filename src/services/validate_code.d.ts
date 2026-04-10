@@ -1,6 +1,7 @@
 // ValidateCodeCreate 系统操作校验码创建
 export type ValidateCodeCreate = { 
   //用户ID
+  //最大长度: 50
   userId: string;
   //验证类型
   //最大长度: 50
@@ -24,6 +25,7 @@ export type ValidateCodeDetail = {
   //创建时间
   updatedAt: string;
   //用户ID
+  //最大长度: 50
   userId?: string;
   //验证类型
   //最大长度: 50

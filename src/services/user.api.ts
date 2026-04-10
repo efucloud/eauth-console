@@ -1,19 +1,56 @@
 import { request } from '@umijs/max';
 
-import { UserDetail, UserRole, UserStatus, UserDetailList, UserResetPassword, UserCreate, UserUpdate } from './user.d';
+import { UserDetail, UserCreate, UserDetailList, UserStatus, UserResetPassword, UserUpdate, UserRole } from './user.d';
 import { BatchOperationIds } from './common.d';
 
-//系统角色设置
-//系统角色设置,admin: 管理员，view: 查看者， edit: 编辑者， none: 无权限，仅为系统成员
+//创建用户
+//创建用户信息
 //请求方法: POST
-//请求地址: /api/user/role
-export async function setUserRole<UserDetail>(  data: UserRole,   options?: { [key: string]: any }) {
-  return  request<UserDetail>(`/api/user/role`, {
+//请求地址: /api/user
+export async function createUser<UserDetail>(  data: UserCreate,   options?: { [key: string]: any }) {
+  return  request<UserDetail>(`/api/user`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     data,
+    ...(options || {}),
+  });
+}
+//获取用户列表
+//获取用户列表
+//请求方法: GET
+//请求地址: /api/user
+//参数名: role 参数类型: string 参数位置: query 是否必须: false  参数说明: 系统角色
+//参数名: username 参数类型: string 参数位置: query 是否必须: false  参数说明: 账户名英文
+//参数名: email 参数类型: string 参数位置: query 是否必须: false  参数说明: 邮箱
+//参数名: id 参数类型: string 参数位置: query 是否必须: false  参数说明: 数据库记录ID
+//参数名: order 参数类型: string 参数位置: query 是否必须: false  参数说明: 排序
+//参数名: nickname 参数类型: string 参数位置: query 是否必须: false  参数说明: 昵称
+//参数名: phone 参数类型: string 参数位置: query 是否必须: false  参数说明: 电话号码
+//参数名: jobNumber 参数类型: string 参数位置: query 是否必须: false  参数说明: 工号
+//参数名: current 参数类型: number 参数位置: query 是否必须: false  参数说明: 页码
+//参数名: pageSize 参数类型: number 参数位置: query 是否必须: false  参数说明: 每页大小
+export async function listUser<UserDetailList>(
+  params: {
+    order?:string;// 排序
+    nickname?:string;// 昵称
+    phone?:string;// 电话号码
+    jobNumber?:string;// 工号
+    current?:number;// 页码
+    pageSize?:number;// 每页大小
+    role?:string;// 系统角色
+    username?:string;// 账户名英文
+    email?:string;// 邮箱
+    id?:string;// 数据库记录ID
+  },
+  options?: { [key: string]: any }) {
+  return  request<UserDetailList>(`/api/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: params,
     ...(options || {}),
   });
 }
@@ -45,40 +82,23 @@ export async function changeUserStatus(  data: UserStatus,   options?: { [key: s
     ...(options || {}),
   });
 }
-//获取用户列表
-//获取用户列表
+//获取用户详情
+//获取用户信息详情
 //请求方法: GET
-//请求地址: /api/user
-//参数名: nickname 参数类型: string 参数位置: query 是否必须: false  参数说明: 昵称
-//参数名: phone 参数类型: string 参数位置: query 是否必须: false  参数说明: 电话号码
-//参数名: email 参数类型: string 参数位置: query 是否必须: false  参数说明: 邮箱
-//参数名: username 参数类型: string 参数位置: query 是否必须: false  参数说明: 账户名英文
-//参数名: jobNumber 参数类型: string 参数位置: query 是否必须: false  参数说明: 工号
-//参数名: id 参数类型: string 参数位置: query 是否必须: false  参数说明: 数据库记录ID
-//参数名: current 参数类型: number 参数位置: query 是否必须: false  参数说明: 页码
-//参数名: pageSize 参数类型: number 参数位置: query 是否必须: false  参数说明: 每页大小
-//参数名: order 参数类型: string 参数位置: query 是否必须: false  参数说明: 排序
-//参数名: role 参数类型: string 参数位置: query 是否必须: false  参数说明: 系统角色
-export async function listUser<UserDetailList>(
+//请求地址: /api/user/{id}
+//参数名: id 参数类型: string 参数位置: path 是否必须: true  参数说明: 记录ID
+export async function getUser<UserDetail>(
   params: {
-    role?:string;// 系统角色
-    nickname?:string;// 昵称
-    phone?:string;// 电话号码
-    email?:string;// 邮箱
-    username?:string;// 账户名英文
-    jobNumber?:string;// 工号
-    id?:string;// 数据库记录ID
-    current?:number;// 页码
-    pageSize?:number;// 每页大小
-    order?:string;// 排序
+    id: string;// 记录ID
   },
   options?: { [key: string]: any }) {
-  return  request<UserDetailList>(`/api/user`, {
+  const { id, ...rest } = params;
+  return  request<UserDetail>(`/api/user/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    params: params,
+    params: { ...rest },
     ...(options || {}),
   });
 }
@@ -88,20 +108,6 @@ export async function listUser<UserDetailList>(
 //请求地址: /api/user/reset/password
 export async function resetUserPassword(  data: UserResetPassword,   options?: { [key: string]: any }) {
   return  request(`/api/user/reset/password`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data,
-    ...(options || {}),
-  });
-}
-//创建用户
-//创建用户信息
-//请求方法: POST
-//请求地址: /api/user
-export async function createUser<UserDetail>(  data: UserCreate,   options?: { [key: string]: any }) {
-  return  request<UserDetail>(`/api/user`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -124,23 +130,17 @@ export async function updateUser<UserDetail>(  data: UserUpdate,   options?: { [
     ...(options || {}),
   });
 }
-//获取用户详情
-//获取用户信息详情
-//请求方法: GET
-//请求地址: /api/user/{id}
-//参数名: id 参数类型: string 参数位置: path 是否必须: true  参数说明: 记录ID
-export async function getUser<UserDetail>(
-  params: {
-    id: string;// 记录ID
-  },
-  options?: { [key: string]: any }) {
-  const { id, ...rest } = params;
-  return  request<UserDetail>(`/api/user/${id}`, {
-    method: 'GET',
+//系统角色设置
+//系统角色设置,admin: 管理员，view: 查看者， edit: 编辑者， none: 无权限，仅为系统成员
+//请求方法: POST
+//请求地址: /api/user/role
+export async function setUserRole<UserDetail>(  data: UserRole,   options?: { [key: string]: any }) {
+  return  request<UserDetail>(`/api/user/role`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    params: { ...rest },
+    data,
     ...(options || {}),
   });
 }

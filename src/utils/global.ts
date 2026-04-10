@@ -1,10 +1,9 @@
-import { AccessTokenResponse, ClientInformation, SimpleOrganizationInfo } from "@/services/common.d";
-import { aesEncrypt } from './crypto';
+import { AccessTokenResponse } from '@/services/common.d';
 
 const systemOauthUrl = 's';
 const tokenKey = 'k';
 const bindkey = 'b';
- 
+
 export const getCurrentOrgCode = (): string => {
   if (window.location.pathname.startsWith('/tenant')) {
     return window.location.pathname.split('/')?.[2];
@@ -12,58 +11,53 @@ export const getCurrentOrgCode = (): string => {
   return '';
 };
 export const getColorPrimary = (): string => {
-  return   '#1890ff';
-}
- 
+  return '#1890ff';
+};
 
-// 获取 token 
-export const getToken = ( ): AccessTokenResponse => {
-  
+// 获取 token
+export const getToken = (): AccessTokenResponse => {
   return JSON.parse(localStorage.getItem(tokenKey) || '{}');
 };
 
-
 export const getAllLoginedOrgs = (): string[] => {
   return Object.keys(getToken()) as string[];
-}
+};
 // 添加 token 到 localStorage
-export const addToken = (  token: AccessTokenResponse) => {
+export const addToken = (token: AccessTokenResponse) => {
   token.timestamp = Date.now();
   localStorage.setItem(tokenKey, JSON.stringify(token));
-
 };
 
 // 从 localStorage 删除 token
 export const deleteToken = () => {
-    localStorage.removeItem(tokenKey);
-    return
-   
+  localStorage.removeItem(tokenKey);
+  return;
 };
- 
-export const trimSpace=(str:string):string=>{
+
+export const trimSpace = (str: string): string => {
   const reg = /^\s+|\s+$/g;
-  return str.replace(reg,'');
-} 
+  return str.replace(reg, '');
+};
 
 export const isSystemPersonalCenter = () => {
   return window.location.pathname.startsWith('/personal/');
-}
- 
+};
+
 export const getI18nLanguage = () => {
   return localStorage.getItem('umi_locale') || 'zh-CN';
-}
+};
 export const getSearchParams = () => {
   return new URLSearchParams(window.location.search);
-}
+};
 
-export const addBind = ( userId: number | undefined) => {
+export const addBind = (userId: string | undefined) => {
   if (userId) {
     sessionStorage.setItem(bindkey, userId.toString());
   }
-}
-export const getBind = ( ): number => {
-  return Number(sessionStorage.getItem(bindkey));
-}
+};
+export const getBind = (): string => {
+  return sessionStorage.getItem(bindkey) || '';
+};
 export const deleteBind = () => {
   sessionStorage.removeItem(bindkey);
 };
@@ -75,7 +69,7 @@ export const getSystemOauthUrl = (): string => {
 };
 export const deleteSystemOauthUrl = () => {
   sessionStorage.removeItem(systemOauthUrl);
-}; 
+};
 export const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
     setTimeout(() => {

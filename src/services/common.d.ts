@@ -148,6 +148,7 @@ export type LoginByLDAP = {
 export type LoginByOIDC = { 
   rememberMe?: string;
   code?: string;
+  bindId?: string;
   provider: string;
   redirectUri?: string;
 }; 
@@ -351,7 +352,7 @@ export type ThirdAuthProfile = {
 //登录方式 未来动态认证时使用
 export type UserClaims = { 
   //系统用户ID
-  string?: string;
+  id?: string;
   // 用户名 组织内唯一必须由DNS-1123标签格式的单元组成
   username?: string;
   // 昵称，如中文名

@@ -9,14 +9,14 @@ import { getProviderOidc } from '@/services/provider_oidc.api';
 const BaseAddress = '/provider/oidc';
 
 
-const ProviderOidcDetail: React.FC = () => {
+const ProviderOidcDetailIndex: React.FC = () => {
   const access = useAccess();
   const navigate = useNavigate();
   const intl = useIntl();
   const params = useParams();
   const [instanceInfo, setInstanceInfo] = useState<ProviderOidcDetail>();
   const getInstanceInfo = async () => {
-    setInstanceInfo(await getProviderOidc({ id: params.id }) as ProviderOidcDetail);
+    setInstanceInfo(await getProviderOidc({ id: params.id! }) as ProviderOidcDetail);
   }
   useEffect(() => { getInstanceInfo(); }, [params.id]);
 
@@ -69,6 +69,6 @@ const ProviderOidcDetail: React.FC = () => {
     </PageContainer>
   );
 };
-export default ProviderOidcDetail;
+export default ProviderOidcDetailIndex;
 
 

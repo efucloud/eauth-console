@@ -2,6 +2,7 @@
 export type ApplicationAuthTop = { 
   name?: string;
   code?: string;
+  //最大长度: 50
   applicationId?: string;
   value?: number;
   home?: string;

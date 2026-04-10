@@ -2,6 +2,7 @@ import { ShortUser } from './user.d';
 // UserTokenCreate 系统用户Token创建
 export type UserTokenCreate = { 
   //用户ID
+  //最大长度: 50
   userId: string;
   //客户端ID
   //最大长度: 255
@@ -29,6 +30,7 @@ export type UserTokenDetail = {
   //创建时间
   updatedAt: string;
   //用户ID
+  //最大长度: 50
   userId: string;
   //用户
   user?: ShortUser;
@@ -61,7 +63,8 @@ export type UserTokenUpdate = {
   //最大长度: 50
   id: string;
   //用户ID
-  userId: number;
+  //最大长度: 50
+  userId: string;
   //客户端ID
   //最大长度: 255
   clientId: string;

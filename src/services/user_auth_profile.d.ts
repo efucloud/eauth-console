@@ -2,6 +2,7 @@ import { JsonMap } from './common.d';
 // UserAuthProfileCreate 系统用户认证方式创建
 export type UserAuthProfileCreate = { 
   //用户ID
+  //最大长度: 50
   userId: string;
   //认证类型provider中的code,email,phone
   //最大长度: 255
@@ -39,6 +40,7 @@ export type UserAuthProfileDetail = {
   //创建时间
   updatedAt: string;
   //用户ID
+  //最大长度: 50
   userId: string;
   //认证类型provider中的code,email,phone
   //最大长度: 255

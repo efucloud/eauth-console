@@ -1,4 +1,4 @@
-import { Divider, Row, Card, Col, List, Popconfirm, message,  } from 'antd';
+import { Divider, Row, Card, Col, List, Popconfirm, message, } from 'antd';
 import React, { Fragment, useEffect, useState } from 'react';
 import { UserAuthProfileDetail, UserAuthProfileDetailList } from '@/services/user_auth_profile.d'
 import { getUserPersonalAuthProfile, changeUserAuthProfileStatus, deleteUserAuthProfile } from '@/services/auth_profile.api'
@@ -80,8 +80,8 @@ const BindingView: React.FC = () => {
 
     return <Row >
       {authMethod?.oidcs?.map((provider) => <Col key={provider.category} lg={2} md={4} sm={8} xs={12} onClick={() => {
-        addBind('', initialState?.currentUser?.id)
-        window.open(provider.address, '_blank');
+        addBind(initialState?.currentUser?.id)
+        window.location.href = provider.address;
       }}><ProviderTwoLine provider={provider.category} /></Col>)}
     </Row>;
   }
@@ -126,7 +126,7 @@ const BindingView: React.FC = () => {
                     handleEnable(intl, false, [item]);
                   }}
                 >
-                  <a style={{color:colorPrimary}} className='delete'><FormattedMessage id="pages.personal.settings.bind.disable" defaultMessage="禁用" /></a>
+                  <a style={{ color: colorPrimary }} className='delete'><FormattedMessage id="pages.personal.settings.bind.disable" defaultMessage="禁用" /></a>
                 </Popconfirm>}
                 {item.enable === false && <Popconfirm
                   key={item.id + '-enable'}
@@ -138,7 +138,7 @@ const BindingView: React.FC = () => {
                     handleEnable(intl, true, [item]);
                   }}
                 >
-                  <a style={{color:colorPrimary}} ><FormattedMessage id="pages.personal.settings.bind.enable" defaultMessage="启用" /></a>
+                  <a style={{ color: colorPrimary }} ><FormattedMessage id="pages.personal.settings.bind.enable" defaultMessage="启用" /></a>
                 </Popconfirm>}
               </>}
             >
